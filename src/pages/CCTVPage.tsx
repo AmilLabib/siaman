@@ -27,7 +27,7 @@ function CameraFeed({ cam }: { cam: CCTVCamera }) {
           </div>
           {cam.isAIEnabled && (
             <span className="text-[9px] font-bold text-yellow-300 bg-black/40 px-1.5 py-0.5 rounded-full">
-              🤖 AI
+              AI
             </span>
           )}
         </div>
@@ -97,7 +97,7 @@ export default function CCTVPage() {
               filter === f ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
             }`}
           >
-            {f === 'semua' ? 'Semua' : f === 'online' ? '🟢 Online' : '🤖 AI Enabled'}
+            {f === 'semua' ? 'Semua' : f === 'online' ? 'Online' : 'AI Enabled'}
           </button>
         ))}
       </div>
@@ -121,7 +121,7 @@ export default function CCTVPage() {
                       </span>
                     </div>
                     {filtered[0].isAIEnabled && (
-                      <span className="text-xs font-bold text-yellow-300 bg-black/40 px-2 py-0.5 rounded-full">🤖 AI Active</span>
+                      <span className="text-xs font-bold text-yellow-300 bg-black/40 px-2 py-0.5 rounded-full">AI Active</span>
                     )}
                   </div>
                   <div className="absolute inset-0 opacity-10" style={{
@@ -151,20 +151,23 @@ export default function CCTVPage() {
 
       {/* AI Detection log */}
       <div className="px-4 mt-6 mb-2">
-        <h2 className="text-sm font-extrabold text-blue-950 mb-3">🤖 Log Deteksi AI</h2>
+        <h2 className="text-sm font-extrabold text-blue-950 mb-3">Log Deteksi AI</h2>
         <div className="space-y-2">
           {[
             { cam: 'Gerbang Utama', event: 'Orang berjalan normal — tidak mencurigakan', time: '08:42', type: 'ok' },
             { cam: 'Parkir Blok A', event: 'Pergerakan kendaraan terdeteksi', time: '07:15', type: 'ok' },
-            { cam: 'Taman Tengah', event: '⚠️ Pergerakan di luar jam normal terdeteksi', time: '02:14', type: 'warn' },
+            { cam: 'Taman Tengah', event: 'Pergerakan di luar jam normal terdeteksi', time: '02:14', type: 'warn' },
           ].map((log, i) => (
             <div key={i} className={`flex items-start gap-3 p-3 rounded-xl border ${
               log.type === 'warn' ? 'bg-yellow-50 border-yellow-200' : 'bg-gray-50 border-gray-100'
             }`}>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm ${
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 log.type === 'warn' ? 'bg-yellow-100' : 'bg-blue-100'
               }`}>
-                {log.type === 'warn' ? '⚠️' : '✅'}
+                {log.type === 'warn'
+                  ? <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth={2} className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                  : <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth={2} className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                }
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-bold text-blue-950">{log.cam}</p>
@@ -200,7 +203,7 @@ export default function CCTVPage() {
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-ping-slow" />
                     <span className="text-white font-bold text-sm">LIVE</span>
-                    {fullscreen.isAIEnabled && <span className="text-yellow-300 text-sm font-bold">· 🤖 AI</span>}
+                    {fullscreen.isAIEnabled && <span className="text-yellow-300 text-sm font-bold">· AI</span>}
                   </div>
                   <p className="text-white/50 text-xs">Siaran langsung</p>
                 </>

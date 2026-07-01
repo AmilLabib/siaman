@@ -1,4 +1,4 @@
-export type UserRole = 'warga' | 'satpam' | 'pkd'
+export type UserRole = 'warga' | 'satpam'
 
 export interface User {
   id: string

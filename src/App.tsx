@@ -32,7 +32,7 @@ function AppRoutes() {
         {/* Warga routes */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
 
-        {/* Satpam / PKD routes */}
+        {/* Satpam routes */}
         <Route path="/satpam" element={<ProtectedRoute><SatpamDashboard /></ProtectedRoute>} />
         <Route path="/lapor-polisi" element={<ProtectedRoute><LaporPolisiPage /></ProtectedRoute>} />
 

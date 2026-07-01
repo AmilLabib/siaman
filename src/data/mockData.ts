@@ -23,17 +23,6 @@ export const mockUsers: User[] = [
     unitNo: 'POS-A',
     pin: '5678',
   },
-  {
-    id: 'u3',
-    name: 'Budi Santoso',
-    role: 'pkd',
-    avatar: 'BS',
-    phone: '+62 811-1122-3344',
-    address: 'Pos Keamanan Desa',
-    complex: 'Perumahan Griya Asri',
-    unitNo: 'PKD-01',
-    pin: '9012',
-  },
 ]
 
 export const mockIncidents: Incident[] = [
@@ -90,7 +79,7 @@ export const mockNotifications: Notification[] = [
   {
     id: 'n1',
     type: 'darurat',
-    title: '🚨 Sinyal Darurat Aktif',
+    title: 'Sinyal Darurat Aktif',
     message: 'Jl. Anggrek No. 11 — Orang mencurigakan terlihat memasuki area komplek. Tetap waspada.',
     timestamp: new Date(Date.now() - 5 * 60 * 1000),
     read: false,
@@ -99,7 +88,7 @@ export const mockNotifications: Notification[] = [
   {
     id: 'n2',
     type: 'info',
-    title: '📢 Pengumuman Komplek',
+    title: 'Pengumuman Komplek',
     message: 'Rapat warga bulanan akan dilaksanakan Sabtu, 5 Juli 2026 pukul 09.00 di Balai Warga.',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
     read: false,
@@ -107,7 +96,7 @@ export const mockNotifications: Notification[] = [
   {
     id: 'n3',
     type: 'sukses',
-    title: '✅ Laporan Ditangani',
+    title: 'Laporan Ditangani',
     message: 'Laporan Anda (Jl. Mawar No. 3) telah ditangani oleh Satpam Agus Wibowo.',
     timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
     read: true,
@@ -116,7 +105,7 @@ export const mockNotifications: Notification[] = [
   {
     id: 'n4',
     type: 'peringatan',
-    title: '⚠️ AI Deteksi Anomali',
+    title: 'AI Deteksi Anomali',
     message: 'CCTV Blok B mendeteksi pergerakan mencurigakan di area parkir. Pukul 02:14 WIB.',
     timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
     read: true,
@@ -124,7 +113,7 @@ export const mockNotifications: Notification[] = [
   {
     id: 'n5',
     type: 'sukses',
-    title: '✅ Laporan Selesai',
+    title: 'Laporan Selesai',
     message: 'Insiden maling di Jl. Subroto No. 14 telah berhasil diamankan. Tersangka ditangkap.',
     timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
     read: true,

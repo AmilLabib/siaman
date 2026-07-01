@@ -61,7 +61,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const newNotif: Notification = {
       id: `n${Date.now()}`,
       type: 'darurat',
-      title: '🚨 Sinyal Darurat Aktif',
+      title: 'Sinyal Darurat Aktif',
       message: `${newInc.reporterAddress} — ${newInc.description}`,
       timestamp: new Date(),
       read: false,

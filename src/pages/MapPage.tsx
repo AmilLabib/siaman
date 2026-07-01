@@ -44,7 +44,9 @@ export default function MapPage() {
       {/* Active alert banner */}
       {activeIncident && (
         <div className="mx-4 mt-3 bg-red-50 border border-red-200 rounded-2xl p-3 flex items-center gap-3 animate-fade-in">
-          <span className="text-xl">🚨</span>
+          <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth={2} className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-red-700">Kejadian Aktif</p>
             <p className="text-xs text-red-500 truncate">{activeIncident.location.label}</p>
@@ -56,9 +58,9 @@ export default function MapPage() {
       {/* Layer toggles */}
       <div className="px-4 py-3 flex gap-2 overflow-x-auto scrollbar-none">
         {([
-          { key: 'kejadian', label: '🔴 Kejadian' },
-          { key: 'satpam', label: '🟢 Satpam' },
-          { key: 'cctv', label: '📹 CCTV' },
+          { key: 'kejadian', label: 'Kejadian' },
+          { key: 'satpam', label: 'Satpam' },
+          { key: 'cctv', label: 'CCTV' },
         ] as { key: MapLayer; label: string }[]).map((l) => (
           <button
             key={l.key}
@@ -123,11 +125,11 @@ export default function MapPage() {
               style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
             >
               <div className={`relative flex flex-col items-center`}>
-                <div className={`w-7 h-7 rounded-full border-2 border-white shadow-lg flex items-center justify-center text-sm ${
+                <div className={`w-7 h-7 rounded-full border-2 border-white shadow-lg flex items-center justify-center ${
                   pos.type === 'aktif' ? 'bg-red-500 animate-ping-slow' :
                   pos.type === 'ditangani' ? 'bg-yellow-400' : 'bg-green-500'
                 }`}>
-                  {pos.type === 'aktif' ? '🚨' : pos.type === 'ditangani' ? '🔧' : '✅'}
+                  <svg viewBox="0 0 24 24" fill="white" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M6 18h12" /></svg>
                 </div>
                 {selected === pos.id && (
                   <div className="absolute bottom-full mb-1 bg-white rounded-xl shadow-xl px-3 py-2 w-40 text-left z-10 animate-fade-in">
@@ -135,7 +137,7 @@ export default function MapPage() {
                     <p className={`text-xs font-semibold ${
                       pos.type === 'aktif' ? 'text-red-500' : pos.type === 'ditangani' ? 'text-yellow-600' : 'text-green-600'
                     }`}>
-                      {pos.type === 'aktif' ? '🔴 Aktif' : pos.type === 'ditangani' ? '🟡 Ditangani' : '🟢 Selesai'}
+                      {pos.type === 'aktif' ? 'Aktif' : pos.type === 'ditangani' ? 'Ditangani' : 'Selesai'}
                     </p>
                   </div>
                 )}
@@ -152,8 +154,8 @@ export default function MapPage() {
               style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
             >
               <div className="relative flex flex-col items-center">
-                <div className="w-8 h-8 bg-green-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold">
-                  🛡️
+                <div className="w-8 h-8 bg-green-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-4 h-4"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" /></svg>
                 </div>
                 {selected === pos.id && (
                   <div className="absolute bottom-full mb-1 bg-white rounded-xl shadow-xl px-3 py-2 min-w-max text-left z-10 animate-fade-in">
@@ -174,8 +176,8 @@ export default function MapPage() {
               style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
             >
               <div className="relative">
-                <div className="w-7 h-7 bg-blue-600 rounded-xl border-2 border-white shadow flex items-center justify-center text-white text-[10px]">
-                  📹
+                <div className="w-7 h-7 bg-blue-600 rounded-xl border-2 border-white shadow flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                 </div>
                 {selected === pos.id && (
                   <div className="absolute bottom-full mb-1 bg-white rounded-xl shadow-xl px-3 py-2 min-w-max text-left z-10 animate-fade-in">
@@ -208,7 +210,7 @@ export default function MapPage() {
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ${
                 off.status === 'bertugas' ? 'bg-green-500' : off.status === 'istirahat' ? 'bg-yellow-400' : 'bg-gray-400'
               }`}>
-                🛡️
+                <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" /></svg>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-sm text-blue-950">{off.name}</p>

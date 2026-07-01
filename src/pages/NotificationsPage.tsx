@@ -13,10 +13,22 @@ function formatRelative(date: Date): string {
 }
 
 const typeConfig = {
-  darurat: { bg: 'bg-red-50', border: 'border-red-200', dot: 'bg-red-500', icon: '🚨' },
-  info: { bg: 'bg-blue-50', border: 'border-blue-200', dot: 'bg-blue-500', icon: '📢' },
-  sukses: { bg: 'bg-green-50', border: 'border-green-200', dot: 'bg-green-500', icon: '✅' },
-  peringatan: { bg: 'bg-yellow-50', border: 'border-yellow-200', dot: 'bg-yellow-500', icon: '⚠️' },
+  darurat: {
+    bg: 'bg-red-50', border: 'border-red-200', dot: 'bg-red-500',
+    icon: <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+  },
+  info: {
+    bg: 'bg-blue-50', border: 'border-blue-200', dot: 'bg-blue-500',
+    icon: <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 000-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>,
+  },
+  sukses: {
+    bg: 'bg-green-50', border: 'border-green-200', dot: 'bg-green-500',
+    icon: <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+  },
+  peringatan: {
+    bg: 'bg-yellow-50', border: 'border-yellow-200', dot: 'bg-yellow-500',
+    icon: <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+  },
 }
 
 export default function NotificationsPage() {
@@ -61,7 +73,7 @@ export default function NotificationsPage() {
               >
                 <div className="absolute top-4 right-4 w-2 h-2 bg-blue-500 rounded-full" />
                 <div className="flex items-start gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg bg-white`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-white`}>
                     {cfg.icon}
                   </div>
                   <div className="flex-1 pr-4">
@@ -86,7 +98,7 @@ export default function NotificationsPage() {
                 className="bg-gray-50 border border-gray-100 rounded-2xl p-4 opacity-70"
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg bg-white grayscale">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-white grayscale opacity-60">
                     {cfg.icon}
                   </div>
                   <div className="flex-1">

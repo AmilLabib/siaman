@@ -49,11 +49,11 @@ export default function DashboardPage() {
   const cancelSOS = () => { setSosStep('idle'); setPin(''); setPinError(''); setDescription('') }
 
   const typeLabels: Record<IncidentType, string> = {
-    maling: '🦹 Maling',
-    kerusuhan: '⚠️ Kerusuhan',
-    kebakaran: '🔥 Kebakaran',
-    mencurigakan: '👁️ Mencurigakan',
-    lainnya: '📋 Lainnya',
+    maling: 'Maling',
+    kerusuhan: 'Kerusuhan',
+    kebakaran: 'Kebakaran',
+    mencurigakan: 'Mencurigakan',
+    lainnya: 'Lainnya',
   }
 
   const greeting = () => {
@@ -75,7 +75,7 @@ export default function DashboardPage() {
         <div className="relative z-10 flex items-start justify-between mb-6">
           <div>
             <p className="text-blue-200 text-sm font-medium">{greeting()},</p>
-            <h1 className="text-white text-2xl font-extrabold leading-tight">{currentUser?.name?.split(' ')[0]} 👋</h1>
+            <h1 className="text-white text-2xl font-extrabold leading-tight">{currentUser?.name?.split(' ')[0]}</h1>
             <p className="text-blue-200/70 text-xs mt-0.5">{currentUser?.complex} · {currentUser?.unitNo}</p>
           </div>
           <button
@@ -108,7 +108,7 @@ export default function DashboardPage() {
           </div>
           {speakerActive && (
             <div className="flex-1 bg-red-500/80 rounded-2xl px-3 py-3 border border-red-400/50">
-              <p className="text-white text-xs font-bold">📢 Speaker</p>
+              <p className="text-white text-xs font-bold">Speaker</p>
               <p className="text-white/80 text-xs mt-0.5">Aktif</p>
             </div>
           )}
@@ -123,7 +123,7 @@ export default function DashboardPage() {
               <span className="text-white font-bold text-lg">!</span>
             </div>
             <div className="flex-1">
-              <p className="font-extrabold text-red-700 text-sm">⚠️ Kejadian Aktif di Komplek</p>
+              <p className="font-extrabold text-red-700 text-sm">Kejadian Aktif di Komplek</p>
               <p className="text-red-600/80 text-xs mt-0.5 leading-relaxed">
                 {activeIncidents[0].reporterAddress} — {activeIncidents[0].description}
               </p>
@@ -165,17 +165,21 @@ export default function DashboardPage() {
         <h2 className="text-sm font-extrabold text-blue-950 mb-3">Aksi Cepat</h2>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { icon: '📹', label: 'Pantau CCTV', path: '/cctv', color: 'bg-blue-50 border-blue-100' },
-            { icon: '🛡️', label: 'Hubungi Satpam', path: '/satpam-contact', color: 'bg-green-50 border-green-100' },
-            { icon: '📋', label: 'Riwayat Laporan', path: '/incidents', color: 'bg-orange-50 border-orange-100' },
-            { icon: '🗺️', label: 'Peta Komplek', path: '/map', color: 'bg-indigo-50 border-indigo-100' },
+            { label: 'Pantau CCTV', path: '/cctv', color: 'bg-blue-50 border-blue-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-blue-600"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> },
+            { label: 'Hubungi Satpam', path: '/satpam-contact', color: 'bg-green-50 border-green-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-green-600"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg> },
+            { label: 'Riwayat Laporan', path: '/incidents', color: 'bg-orange-50 border-orange-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-orange-600"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg> },
+            { label: 'Peta Komplek', path: '/map', color: 'bg-indigo-50 border-indigo-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-indigo-600"><path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg> },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
               className={`${a.color} border rounded-2xl p-4 flex items-center gap-3 press-effect hover:shadow-md transition-all`}
             >
-              <span className="text-2xl">{a.icon}</span>
+              {a.icon}
               <span className="text-sm font-bold text-blue-950 text-left leading-tight">{a.label}</span>
             </button>
           ))}
@@ -192,10 +196,12 @@ export default function DashboardPage() {
           {incidents.slice(0, 3).map((inc) => (
             <div key={inc.id} className="bg-white border border-blue-100 rounded-2xl p-4">
               <div className="flex items-start gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg ${
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                   inc.status === 'aktif' ? 'bg-red-100' : inc.status === 'ditangani' ? 'bg-yellow-100' : 'bg-green-100'
                 }`}>
-                  {inc.type === 'maling' ? '🦹' : inc.type === 'kebakaran' ? '🔥' : inc.type === 'kerusuhan' ? '⚠️' : '👁️'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className={`w-5 h-5 ${inc.status === 'aktif' ? 'text-red-500' : inc.status === 'ditangani' ? 'text-yellow-600' : 'text-green-600'}`}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
@@ -243,7 +249,7 @@ export default function DashboardPage() {
           <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-bold text-red-700 text-sm">🔊 Speaker Komplek</p>
+                <p className="font-bold text-red-700 text-sm">Speaker Komplek</p>
                 <p className="text-xs text-red-500">{speakerActive ? 'Sedang aktif — pengumuman darurat' : 'Nonaktif'}</p>
               </div>
               <button

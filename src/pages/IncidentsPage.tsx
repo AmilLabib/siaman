@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type React from 'react'
 import { useApp } from '../context/AppContext'
 import TopBar from '../components/TopBar'
 import type { IncidentStatus, IncidentType } from '../types'
@@ -20,12 +21,12 @@ const statusConfig: Record<IncidentStatus, { label: string; bg: string; text: st
   selesai: { label: 'Selesai', bg: 'bg-green-100', text: 'text-green-700' },
 }
 
-const typeEmoji: Record<IncidentType, string> = {
-  maling: '🦹',
-  kerusuhan: '⚠️',
-  kebakaran: '🔥',
-  mencurigakan: '👁️',
-  lainnya: '📋',
+const typeIcon: Record<IncidentType, React.ReactElement> = {
+  maling: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>,
+  kerusuhan: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+  kebakaran: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>,
+  mencurigakan: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>,
+  lainnya: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>,
 }
 
 const typeLabel: Record<IncidentType, string> = {
@@ -63,7 +64,7 @@ export default function IncidentsPage() {
               filter === f ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
             }`}
           >
-            {f === 'semua' ? 'Semua' : f === 'aktif' ? '🔴 Aktif' : f === 'ditangani' ? '🟡 Ditangani' : '🟢 Selesai'}
+            {f === 'semua' ? 'Semua' : f === 'aktif' ? 'Aktif' : f === 'ditangani' ? 'Ditangani' : 'Selesai'}
             <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
               filter === f ? 'bg-white/30 text-white' : 'bg-blue-100 text-blue-600'
             }`}>
@@ -75,7 +76,11 @@ export default function IncidentsPage() {
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20">
-          <span className="text-5xl mb-3">📋</span>
+          <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth={1.5} className="w-8 h-8">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
           <p className="font-bold text-blue-950">Tidak ada laporan</p>
           <p className="text-gray-400 text-sm mt-1">Belum ada kejadian dalam kategori ini</p>
         </div>
@@ -90,10 +95,10 @@ export default function IncidentsPage() {
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${
-                      inc.status === 'aktif' ? 'bg-red-100' : inc.status === 'ditangani' ? 'bg-yellow-100' : 'bg-green-100'
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      inc.status === 'aktif' ? 'bg-red-100 text-red-500' : inc.status === 'ditangani' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'
                     }`}>
-                      {typeEmoji[inc.type]}
+                      {typeIcon[inc.type]}
                     </div>
                     <div>
                       <p className="font-extrabold text-sm text-blue-950">{typeLabel[inc.type]}</p>
@@ -130,7 +135,7 @@ export default function IncidentsPage() {
                     )}
                   </div>
                   {inc.isEmergency && (
-                    <span className="text-xs bg-red-100 text-red-600 font-bold px-2.5 py-1 rounded-full">🚨 Darurat</span>
+                    <span className="text-xs bg-red-100 text-red-600 font-bold px-2.5 py-1 rounded-full">Darurat</span>
                   )}
                 </div>
               </div>

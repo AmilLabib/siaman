@@ -28,8 +28,6 @@ export default function SatpamDashboard() {
   const onlineCCTV = mockCCTV.filter((c) => c.status === 'online').length
   const onlineOfficers = mockOfficers.filter((o) => o.status === 'bertugas').length
 
-  const isPKD = currentUser?.role === 'pkd'
-
   return (
     <div className="pb-24">
       {/* Header */}
@@ -45,7 +43,7 @@ export default function SatpamDashboard() {
               <span className="text-green-300 text-xs font-bold uppercase tracking-widest">Bertugas</span>
             </div>
             <h1 className="text-white text-2xl font-extrabold">{currentUser?.name?.split(' ')[0]}</h1>
-            <p className="text-blue-200/70 text-xs mt-0.5">{isPKD ? 'Pos Keamanan Desa' : 'Satpam'} · {currentUser?.unitNo}</p>
+            <p className="text-blue-200/70 text-xs mt-0.5">Satpam · {currentUser?.unitNo}</p>
           </div>
           <button
             onClick={() => navigate('/notifications')}
@@ -84,7 +82,7 @@ export default function SatpamDashboard() {
           <div className="bg-red-50 border-2 border-red-300 rounded-2xl p-4 animate-fade-in">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-ping-slow" />
-              <p className="font-extrabold text-red-700 text-sm">⚠️ {activeIncidents.length} Kejadian Aktif</p>
+              <p className="font-extrabold text-red-700 text-sm">{activeIncidents.length} Kejadian Aktif</p>
             </div>
             {activeIncidents.map((inc) => (
               <div key={inc.id} className="bg-white rounded-xl p-3 mb-2 last:mb-0">
@@ -114,10 +112,12 @@ export default function SatpamDashboard() {
         }`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
                 speakerActive ? 'bg-blue-600' : 'bg-gray-100'
               }`}>
-                {speakerActive ? '📢' : '🔇'}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className={`w-6 h-6 ${speakerActive ? 'text-white' : 'text-gray-400'}`}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 000-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
               </div>
               <div>
                 <p className="font-extrabold text-blue-950 text-sm">Speaker / Toa Komplek</p>
@@ -145,19 +145,21 @@ export default function SatpamDashboard() {
         <h2 className="text-sm font-extrabold text-blue-950 mb-3">Aksi Cepat</h2>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { icon: '📋', label: 'Semua Laporan', path: '/incidents', color: 'bg-blue-50 border-blue-100' },
-            { icon: '📹', label: 'Monitor CCTV', path: '/cctv', color: 'bg-indigo-50 border-indigo-100' },
-            { icon: '🗺️', label: 'Peta Komplek', path: '/map', color: 'bg-green-50 border-green-100' },
-            ...(isPKD ? [{ icon: '🚔', label: 'Lapor ke Polisi', path: '/lapor-polisi', color: 'bg-orange-50 border-orange-100' }] : [
-              { icon: '📞', label: 'Hubungi PKD', path: '/satpam-contact', color: 'bg-orange-50 border-orange-100' },
-            ]),
+            { label: 'Semua Laporan', path: '/incidents', color: 'bg-blue-50 border-blue-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-blue-600"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg> },
+            { label: 'Monitor CCTV', path: '/cctv', color: 'bg-indigo-50 border-indigo-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-indigo-600"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> },
+            { label: 'Peta Komplek', path: '/map', color: 'bg-green-50 border-green-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-green-600"><path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg> },
+            { label: 'Kontak Darurat', path: '/satpam-contact', color: 'bg-orange-50 border-orange-100',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6 text-orange-600"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg> },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
               className={`${a.color} border rounded-2xl p-4 flex items-center gap-3 press-effect hover:shadow-md transition-all`}
             >
-              <span className="text-2xl">{a.icon}</span>
+              {a.icon}
               <span className="text-sm font-bold text-blue-950 text-left leading-tight">{a.label}</span>
             </button>
           ))}
@@ -178,10 +180,12 @@ export default function SatpamDashboard() {
                 inc.status === 'aktif' ? 'border-red-200' : 'border-blue-100'
               }`}>
                 <div className="flex items-start gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     inc.status === 'aktif' ? 'bg-red-100' : inc.status === 'ditangani' ? 'bg-yellow-100' : 'bg-green-100'
                   }`}>
-                    {inc.type === 'maling' ? '🦹' : inc.type === 'kebakaran' ? '🔥' : '👁️'}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className={`w-5 h-5 ${inc.status === 'aktif' ? 'text-red-500' : inc.status === 'ditangani' ? 'text-yellow-600' : 'text-green-600'}`}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
@@ -200,10 +204,10 @@ export default function SatpamDashboard() {
                       onClick={() => navigate('/map')}
                       className="flex-1 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl press-effect"
                     >
-                      🗺️ Navigasi
+                      Navigasi
                     </button>
                     <button className="flex-1 py-2 bg-green-50 border border-green-200 text-green-700 text-xs font-bold rounded-xl press-effect">
-                      ✅ Tangani
+                      Tangani
                     </button>
                   </div>
                 )}

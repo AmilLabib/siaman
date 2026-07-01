@@ -3,12 +3,12 @@ import TopBar from '../components/TopBar'
 import { useApp } from '../context/AppContext'
 import type { IncidentType } from '../types'
 
-const crimeTypes: { type: IncidentType; label: string; icon: string; desc: string }[] = [
-  { type: 'maling', label: 'Pencurian / Maling', icon: '🦹', desc: 'Tindak pencurian, perampokan, atau percobaan pembobolan' },
-  { type: 'kerusuhan', label: 'Kerusuhan / Perkelahian', icon: '⚠️', desc: 'Perselisihan, perkelahian, atau ancaman kekerasan' },
-  { type: 'kebakaran', label: 'Kebakaran', icon: '🔥', desc: 'Kebakaran properti atau potensi bahaya api' },
-  { type: 'mencurigakan', label: 'Orang Mencurigakan', icon: '👁️', desc: 'Pergerakan mencurigakan, tidak dikenal, atau mengancam' },
-  { type: 'lainnya', label: 'Lainnya', icon: '📋', desc: 'Kejadian lain yang membutuhkan perhatian kepolisian' },
+const crimeTypes: { type: IncidentType; label: string; desc: string }[] = [
+  { type: 'maling', label: 'Pencurian / Maling', desc: 'Tindak pencurian, perampokan, atau percobaan pembobolan' },
+  { type: 'kerusuhan', label: 'Kerusuhan / Perkelahian', desc: 'Perselisihan, perkelahian, atau ancaman kekerasan' },
+  { type: 'kebakaran', label: 'Kebakaran', desc: 'Kebakaran properti atau potensi bahaya api' },
+  { type: 'mencurigakan', label: 'Orang Mencurigakan', desc: 'Pergerakan mencurigakan, tidak dikenal, atau mengancam' },
+  { type: 'lainnya', label: 'Lainnya', desc: 'Kejadian lain yang membutuhkan perhatian kepolisian' },
 ]
 
 type Step = 'form' | 'confirm' | 'sending' | 'sent'
@@ -37,7 +37,7 @@ export default function LaporPolisiPage() {
         type: crimeType,
         status: 'aktif',
         location: { lat: -6.9667, lng: 110.4167, label: location },
-        description: `[LAPORAN PKD] ${description}${suspectDesc ? ` | Deskripsi tersangka: ${suspectDesc}` : ''}`,
+        description: `[LAPORAN SATPAM] ${description}${suspectDesc ? ` | Deskripsi tersangka: ${suspectDesc}` : ''}`,
         isEmergency: priority === 'tinggi',
       })
       setStep('sent')
@@ -50,19 +50,21 @@ export default function LaporPolisiPage() {
     <div className="pb-24">
       <TopBar title="Lapor ke Kepolisian" showBack />
 
-      {/* PKD badge */}
-      <div className="mx-4 mt-3 bg-orange-50 border border-orange-200 rounded-2xl px-4 py-3 flex items-center gap-3">
-        <span className="text-2xl">🚔</span>
+      {/* Satpam badge */}
+      <div className="mx-4 mt-3 bg-blue-50 border border-blue-200 rounded-2xl px-4 py-3 flex items-center gap-3">
+        <div className="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth={1.8} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+        </div>
         <div>
-          <p className="text-xs font-bold text-orange-700">Fitur Eksklusif PKD</p>
-          <p className="text-xs text-orange-500">Laporan langsung terhubung ke polsek terdekat</p>
+          <p className="text-xs font-bold text-blue-700">Lapor ke Kepolisian</p>
+          <p className="text-xs text-blue-500">Laporan langsung terhubung ke polsek terdekat</p>
         </div>
       </div>
 
       {/* Active incidents to reference */}
       {activeIncidents.length > 0 && (
         <div className="mx-4 mt-3 p-3 bg-red-50 border border-red-200 rounded-2xl">
-          <p className="text-xs font-bold text-red-700 mb-2">⚠️ Kejadian Aktif yang Bisa Dilaporkan</p>
+          <p className="text-xs font-bold text-red-700 mb-2">Kejadian Aktif yang Bisa Dilaporkan</p>
           {activeIncidents.map((inc) => (
             <button
               key={inc.id}
@@ -93,7 +95,6 @@ export default function LaporPolisiPage() {
                     crimeType === c.type ? 'border-blue-500 bg-blue-50' : 'border-gray-100 bg-white hover:border-blue-200'
                   }`}
                 >
-                  <span className="text-2xl flex-shrink-0">{c.icon}</span>
                   <div>
                     <p className="font-bold text-sm text-blue-950">{c.label}</p>
                     <p className="text-xs text-gray-500">{c.desc}</p>
@@ -119,9 +120,8 @@ export default function LaporPolisiPage() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Jl. Subroto No. 14, Blok B..."
-                className="w-full border-2 border-blue-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 pr-10"
+                className="w-full border-2 border-blue-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500"
               />
-              <span className="absolute right-3 top-3 text-lg">📍</span>
             </div>
           </div>
 
@@ -165,7 +165,7 @@ export default function LaporPolisiPage() {
                       : 'border-gray-200 bg-gray-50 text-gray-500'
                   }`}
                 >
-                  {p === 'tinggi' ? '🔴 Tinggi' : p === 'sedang' ? '🟡 Sedang' : '🟢 Rendah'}
+                  {p === 'tinggi' ? 'Tinggi' : p === 'sedang' ? 'Sedang' : 'Rendah'}
                 </button>
               ))}
             </div>
@@ -187,11 +187,11 @@ export default function LaporPolisiPage() {
             <h3 className="font-extrabold text-orange-800 mb-4">Konfirmasi Laporan ke Polisi</h3>
             <div className="space-y-3">
               {[
-                { label: 'Jenis', value: crimeInfo.icon + ' ' + crimeInfo.label },
+                { label: 'Jenis', value: crimeInfo.label },
                 { label: 'Lokasi', value: location },
                 { label: 'Kronologi', value: description },
                 { label: 'Prioritas', value: priority.charAt(0).toUpperCase() + priority.slice(1) },
-                { label: 'Dilaporkan oleh', value: currentUser?.name + ' (PKD)' },
+                { label: 'Dilaporkan oleh', value: currentUser?.name + ' (Satpam)' },
               ].map((r) => (
                 <div key={r.label} className="flex gap-3">
                   <span className="text-xs text-orange-600/60 font-semibold w-24 flex-shrink-0">{r.label}</span>
@@ -205,7 +205,7 @@ export default function LaporPolisiPage() {
               ← Edit
             </button>
             <button onClick={handleConfirm} className="flex-1 py-3.5 bg-blue-700 text-white font-extrabold rounded-2xl press-effect">
-              Kirim ke Polisi 🚔
+              Kirim ke Polisi
             </button>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function LaporPolisiPage() {
       {step === 'sending' && (
         <div className="flex flex-col items-center justify-center py-20 px-6">
           <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-ping-slow">
-            <span className="text-4xl">🚔</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth={1.5} className="w-10 h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
           </div>
           <h3 className="text-xl font-extrabold text-blue-950 mb-2">Mengirim Laporan...</h3>
           <p className="text-blue-500 text-sm text-center">Menghubungi Polsek Semarang Tengah</p>

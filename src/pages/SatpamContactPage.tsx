@@ -41,7 +41,7 @@ export default function SatpamContactPage() {
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white font-extrabold text-sm flex-shrink-0 ${
                   off.status === 'bertugas' ? 'bg-green-500' : off.status === 'istirahat' ? 'bg-yellow-400' : 'bg-gray-400'
                 }`}>
-                  🛡️
+                  <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" /></svg>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
@@ -72,7 +72,7 @@ export default function SatpamContactPage() {
                   href={`https://wa.me/${off.phone.replace(/[^0-9]/g, '')}`}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-green-50 border border-green-200 rounded-xl text-sm font-bold text-green-700 hover:bg-green-100 transition-all press-effect"
                 >
-                  <span className="text-base">💬</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                   WhatsApp
                 </a>
               </div>
@@ -86,17 +86,21 @@ export default function SatpamContactPage() {
         <h2 className="text-sm font-extrabold text-blue-950 mb-3">Kontak Darurat</h2>
         <div className="space-y-2">
           {[
-            { label: 'Kepolisian (110)', icon: '🚔', number: '110', color: 'bg-blue-50 border-blue-200 text-blue-700' },
-            { label: 'Pemadam Kebakaran (113)', icon: '🚒', number: '113', color: 'bg-orange-50 border-orange-200 text-orange-700' },
-            { label: 'Ambulans (118)', icon: '🚑', number: '118', color: 'bg-red-50 border-red-200 text-red-700' },
-            { label: 'SAR / Basarnas (115)', icon: '🆘', number: '115', color: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
+            { label: 'Kepolisian (110)', number: '110', color: 'bg-blue-50 border-blue-200 text-blue-700',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg> },
+            { label: 'Pemadam Kebakaran (113)', number: '113', color: 'bg-orange-50 border-orange-200 text-orange-700',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg> },
+            { label: 'Ambulans (118)', number: '118', color: 'bg-red-50 border-red-200 text-red-700',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg> },
+            { label: 'SAR / Basarnas (115)', number: '115', color: 'bg-yellow-50 border-yellow-200 text-yellow-700',
+              icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg> },
           ].map((c) => (
             <a
               key={c.label}
               href={`tel:${c.number}`}
               className={`flex items-center gap-3 ${c.color} border rounded-2xl p-3.5 press-effect hover:opacity-80 transition-all`}
             >
-              <span className="text-2xl">{c.icon}</span>
+              {c.icon}
               <div className="flex-1">
                 <p className="font-bold text-sm">{c.label}</p>
               </div>
